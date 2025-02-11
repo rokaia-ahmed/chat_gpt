@@ -13,6 +13,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (context) => ChatCubit(),
       child: Scaffold(
