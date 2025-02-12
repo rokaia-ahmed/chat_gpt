@@ -29,11 +29,6 @@ AppBar customAppBar(BuildContext context) {
                 color: Colors.white,
               ),
             ),
-            Spacer(),
-            Icon(
-              Icons.more_vert,
-              color: Colors.white,
-            ),
           ],
         ),
       ),
@@ -43,10 +38,6 @@ AppBar customAppBar(BuildContext context) {
           child: Image.asset(AssetsManager.openaiLogo,
           ),
         ),
-    actions: [
-          Icon(Icons.more_vert,
-          color: Colors.white,
-          ),
-        ],
+    leadingWidth: 40.w,
   );
 }

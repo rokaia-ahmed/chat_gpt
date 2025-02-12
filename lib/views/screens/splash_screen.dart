@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3,),
+    Future.delayed(Duration(seconds: 2,),
       ()=>navigateTo(),
     );
     super.initState();
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
      body: Center(
-       child: Image.asset(AssetsManager.openaiLogo),
+       child: Image.asset(AssetsManager.splash),
      ),
     );
   }

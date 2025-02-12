@@ -6,8 +6,8 @@ import '../../core/constants/app_colors.dart';
 import '../../cubits/chat_cubit.dart';
 
 class CustomBottomSheet extends StatelessWidget {
-   CustomBottomSheet({super.key});
-  final TextEditingController textController = TextEditingController();
+   const CustomBottomSheet({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChatCubit, ChatState>(
@@ -19,29 +19,28 @@ class CustomBottomSheet extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
-                  controller: textController,
+                  controller:BlocProvider.of<ChatCubit>(context).textController ,
                   cursorColor: Colors.white,
                   style: TextStyle(
                     color: Colors.white,
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(left: 5.w),
+                    contentPadding: EdgeInsets.only(left: 10.w),
                     hintText: 'how can I help you?',
                     hintStyle: TextStyle(
                       color: Colors.grey,
 
                     ),
                   ),
-                  onChanged: (value) {
-                    BlocProvider.of<ChatCubit>(context).onTyping();
-                  },
                   onFieldSubmitted: (value) {
-
+                    BlocProvider.of<ChatCubit>(context).chatMessage();
                   },
                 ),
               ),
-              InkWell(onTap: () {},
+              InkWell(onTap: () {
+                BlocProvider.of<ChatCubit>(context).chatMessage();
+              },
                   child: Icon(Icons.send,
                     color: Colors.white,
                   ),

@@ -1,8 +1,17 @@
-import 'package:chat_gpt/views/screens/chat_screen.dart';
+import 'package:chat_gpt/views/screens/splash_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'core/constants/app_colors.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: kIsWeb ? HydratedStorage.webStorageDirectory :
+    await getApplicationDocumentsDirectory(),
+  );
   runApp(const MyApp());
 }
 
@@ -29,7 +38,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home:ChatScreen(),
+        home:SplashScreen(),
       ),
     );
   }
