@@ -5,39 +5,36 @@ class ChatResponseModel {
   String? model;
   List<Choices>? choices;
 
-  ChatResponseModel(
-      {this.id,
-        this.object,
-        this.created,
-        this.model,
-        this.choices,
-       });
+  ChatResponseModel({this.id,
+    this.object,
+    this.created,
+    this.model,
+    this.choices,
+  });
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['object'] = object;
     data['created'] = created;
     data['model'] = model;
-
     if (choices != null) {
       data['choices'] = choices!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 
-  ChatResponseModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    object = json['object'];
-    created = json['created'];
-    model = json['model'];
-    if (json['choices'] != null) {
-      choices = <Choices>[];
-      json['choices'].forEach((v) {
-        choices!.add( Choices.fromJson(v));
-      });
-    }
+  factory ChatResponseModel.fromJson(Map<String, dynamic> json) {
+    return ChatResponseModel(
+      id: json['id'],
+      object: json['object'],
+      created: json['created'],
+      model: json['model'],
+      choices: json['choices'] != null
+          ? (json['choices'] as List).map((i) => Choices.fromJson(i)).toList()
+          : null,
+    );
   }
-
 }
 
 class Choices {
@@ -47,11 +44,12 @@ class Choices {
 
   Choices({this.index, this.message,this.finishReason});
 
-  Choices.fromJson(Map<String, dynamic> json) {
-    index = json['index'];
-    message =
-    json['message'] != null ?  Message.fromJson(json['message']) : null;
-    finishReason = json['finish_reason'];
+  factory Choices.fromJson(Map<String, dynamic> json) {
+    return Choices(
+      index: json['index'],
+      message: json['message'] != null ? Message.fromJson(json['message']) : null,
+      finishReason: json['finish_reason'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -73,10 +71,13 @@ class Message {
 
   Message({this.role, this.content,this.sender});
 
-  Message.fromJson(Map<String, dynamic> json) {
-    role = json['role'];
-    content = json['content'];
+  factory Message.fromJson(Map<String, dynamic> json) {
+    return Message(
+      role: json['role'],
+      content: json['content'],
+    );
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data =  <String, dynamic>{};
     data['role'] = role;

@@ -14,36 +14,45 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context) => ChatCubit(),
+      create: (context) => ChatCubit()..loadMessages(),
       child: Scaffold(
         appBar: customAppBar(context),
-        bottomNavigationBar: CustomBottomSheet(),
+        bottomSheet: CustomBottomSheet(),
         body: BlocBuilder<ChatCubit, ChatState>(
-          builder: (context, state) {
+          builder: (context, state)  {
+            var cubit = BlocProvider.of<ChatCubit>(context);
             return Column(
               children: [
                 Expanded(
-                  child: state is ChatSuccess? ListView.separated(
-                    itemCount:  state.messages.length,
-                    padding: EdgeInsets.all(10),
+                  child: cubit.messages.isNotEmpty?
+                  ListView.separated(
+                    itemCount:  cubit.messages.length,
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewPadding.bottom + 75,
+                    left: 10,top: 10 , right: 10 ,
+                    ),
                     separatorBuilder: (context, index) =>
                         SizedBox(
                           height: 10.h,
                         ),
                     itemBuilder: (context, index) =>
-                    ChatWidget(textController:
-                      BlocProvider.of<ChatCubit>(context).textController.text,
-                      model: state.messages[index],),
+                    ChatWidget(
+                      model: cubit.messages[index],
+                      sender: cubit.sender[index],
+                    ),
                   ):Container(),
                 ),
                 if(state is ChatLoading)
-                  const SpinKitThreeBounce(
-                    color: Colors.white,
-                    size: 18,
+                  Column(
+                    children: [
+                      const SpinKitThreeBounce(
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      SizedBox(
+                        height: 65.h,
+                      ),
+                    ],
                   ),
-                SizedBox(
-                  height: 10.h,
-                ),
               ],
             );
           },

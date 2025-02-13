@@ -6,10 +6,11 @@ import '../../core/constants/assets_manager.dart';
 import '../../models/chat_response_model.dart';
 
 class ChatWidget extends StatelessWidget {
-  const ChatWidget({super.key, required this.textController,
-    required this.model});
- final String textController;
+  const ChatWidget({super.key,
+    required this.model, required this.sender});
  final  ChatResponseModel model ;
+ final  String sender ;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,7 +23,7 @@ class ChatWidget extends StatelessWidget {
               width: 40.w,
             ),
             Expanded(
-              child: Text(model.choices![0].message!.sender??'',
+              child: Text(sender,
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -35,7 +36,7 @@ class ChatWidget extends StatelessWidget {
         ),
         Container(
           color: AppColors.cardColor,
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

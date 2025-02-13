@@ -38,7 +38,7 @@ class CustomBottomSheet extends StatelessWidget {
                   },
                 ),
               ),
-              InkWell(onTap: () {
+              GestureDetector(onTap: () {
                 BlocProvider.of<ChatCubit>(context).chatMessage();
               },
                   child: Icon(Icons.send,
