@@ -36,7 +36,7 @@ class ChatCubit extends Cubit<ChatState> {
      }),
      );
       if(response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+        final data = jsonDecode(utf8.decode(response.bodyBytes));
         chatResponseModel = ChatResponseModel.fromJson(data);
          saveMessages(chatResponseModel!,textController.text);
         textController.clear();
