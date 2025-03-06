@@ -6,6 +6,7 @@ import 'core/constants/app_colors.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async{
+  
   WidgetsFlutterBinding.ensureInitialized();
 
   HydratedBloc.storage = await HydratedStorage.build(
@@ -43,5 +44,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 
